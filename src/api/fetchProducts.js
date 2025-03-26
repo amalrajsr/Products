@@ -6,7 +6,6 @@ export const fetchProducts = async ({ pageParam = 1, query = "" }) => {
     `/api/products?limit=${limit}&page=${pageParam}`
   );
   const products = response.data.products;
-  console.log("fetch products", products.length);
   // If a query is provided, filter the products by title (case-insensitive)
   const filteredProducts = query
     ? products.filter((product) =>

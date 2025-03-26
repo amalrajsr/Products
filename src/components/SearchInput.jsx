@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useProducts } from "../hooks/useProducts";
 import ProductDetail from "./ProductDetail";
+import SuggestionsDropdown from "./SuggestionsDropdown";
+import BeatLoader from "react-spinners/BeatLoader";
 
 function SearchInput() {
   const [query, setQuery] = useState("");
@@ -127,7 +129,7 @@ function SearchInput() {
       {/* Loading & Error States */}
       {isLoading && isFocused && (
         <div className="absolute left-0 right-0 mt-1 p-2 bg-white shadow">
-          <p className="text-gray-500">Loading...</p>
+          <BeatLoader size={8} className=" text-gray-500" />
         </div>
       )}
       {isError && isFocused && (
@@ -138,33 +140,16 @@ function SearchInput() {
 
       {/* Suggestions Dropdown */}
       {!isLoading && !isError && isFocused && (
-        <div
-          ref={suggestionsRef}
-          onScroll={handleScroll}
-          className="absolute left-0 right-0 bg-white border border-gray-300 
-                     rounded mt-1 shadow-md max-h-60 overflow-auto"
-        >
-          {products.length === 0 && query && (
-            <div className="px-4 py-2 text-gray-500">No results found</div>
-          )}
-          {products.length > 0 &&
-            products.map((product, idx) => (
-              <div
-                key={product.id || idx}
-                ref={(el) => (itemRefs.current[idx] = el)}
-                className={`px-4 py-2 cursor-pointer border-b ${
-                  idx === activeIndex ? "bg-gray-200" : "hover:bg-gray-100"
-                }`}
-                onMouseDown={() => handleMouseDown(product)}
-                onMouseEnter={() => handleMouseEnter(idx)}
-              >
-                {product.title}
-              </div>
-            ))}
-          {isFetchingNextPage && (
-            <div className="px-4 py-2 text-gray-500">Loading more...</div>
-          )}
-        </div>
+        <SuggestionsDropdown
+          products={products}
+          query={query}
+          activeIndex={activeIndex}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseDown={handleMouseDown}
+          handleScroll={handleScroll}
+          isFetchingNextPage={isFetchingNextPage}
+          suggestionsRef={suggestionsRef}
+        />
       )}
 
       {/* Product Details Section */}
