@@ -134,7 +134,7 @@ function SearchInput() {
       )}
       {isError && isFocused && (
         <div className="absolute left-0 right-0 mt-1 p-2 bg-white shadow text-red-500">
-          {error.message || "Error fetching products"}
+          {"something went wrong"}
         </div>
       )}
 
