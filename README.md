@@ -30,7 +30,7 @@ Product Search Autocomplete is a React-based application that offers a rich, fea
 
    ```bash
    git clone https://github.com/amalrajsr/Products.git
-   cd https://github.com/amalrajsr/Products.git
+   cd Products
    ```
 
 2. **Install dependencies**
